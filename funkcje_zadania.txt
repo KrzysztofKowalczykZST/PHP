@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<!-- zad-1 -->
+<?php
+function SUMA($a, $b) {
+    $suma = (int)$a + (int)$b;
+    echo "Suma liczb $a i $b wynosi: $suma";
+}
+?>
+
+<!-- zad-2 -->
+<?php
+function PODSTAWY($a, $b) {
+    $roznica = $a - $b;
+    $iloczyn = $a * $b;
+    $iloraz = ($b != 0) ? ($a / $b) : "błąd (dzielenie przez zero)";
+
+    echo "Różnica: $roznica, Iloczyn: $iloczyn, Iloraz: $iloraz";
+}
+?>
+
+<!-- zad-3 -->
+<?php
+function KALKULATOR($a, $b, $dzialanie) {
+    $wynik = 0;
+    switch ($dzialanie) {
+        case 'suma':
+            $wynik = $a + $b;
+            break;
+        case 'roznica':
+            $wynik = $a - $b;
+            break;
+        case 'iloczyn':
+            $wynik = $a * $b;
+            break;
+        case 'iloraz':
+            $wynik = ($b != 0) ? ($a / $b) : "Błąd: dzielenie przez 0!";
+            break;
+        default:
+            $wynik = "Nieznane działanie";
+    }
+    
+    echo "<div id='wynik'>$wynik</div>";
+}
+?>
+
+<!-- zad-4 -->
+<?php
+function MAKS($a, $b, $c) {
+    $max = $a;
+    if ($b > $max) {
+        $max = $b;
+    }
+    if ($c > $max) {
+        $max = $c;
+    }
+    echo "Największa liczba to: $max";
+}
+?>
+
+<!-- zad-5 -->
+<?php
+function WZROST($wzrost) {
+    if ($wzrost < 150) {
+        echo "niski";
+    } elseif ($wzrost > 180) {
+        echo "wysoki";
+    } else {
+        echo "średni";
+    }
+}
+?>
+
+<!-- zad-6 -->
+<?php
+function BMI($wzrost_cm, $waga_kg) {
+    $wzrost_m = $wzrost_cm / 100;
+    if ($wzrost_m <= 0) {
+        echo "<div id='wynik'>Błędny wzrost</div>";
+        return;
+    }
+    
+    $bmi = $waga_kg / ($wzrost_m * $wzrost_m);
+    $bmi_format = round($bmi, 2);
+    $komentarz = "";
+
+    if ($bmi < 18.5) {
+        $komentarz = "za mało!";
+    } elseif ($bmi > 25) {
+        $komentarz = "za dużo!";
+    } else {
+        $komentarz = "OK!";
+    }
+
+    echo "<div id='wynik'>BMI: $bmi_format - $komentarz</div>";
+}
+?>
+
+<!-- zad-7 -->
+<?php
+function STARSZY($data_urodzenia_osoba1, $data_urodzenia_osoba2) {
+    $t1 = strtotime($data_urodzenia_osoba1);
+    $t2 = strtotime($data_urodzenia_osoba2);
+
+    if ($t1 < $t2) {
+        echo "Pierwsza osoba jest starsza.";
+    } elseif ($t2 < $t1) {
+        echo "Druga osoba jest starsza.";
+    } else {
+        echo "Obie osoby są w tym samym wieku.";
+    }
+}
+?>
+
+<!-- zad-8 -->
+<?php
+function PRZESTĘPNY($rok) {
+    if (($rok % 4 == 0 && $rok % 100 != 0) || ($rok % 400 == 0)) {
+        echo "Rok $rok jest przestępny.";
+    } else {
+        echo "Rok $rok nie jest przestępny.";
+    }
+}
+?>
+
+<!-- zad-9 -->
+<?php
+function SIŁA($haslo) {
+    $dlugosc = strlen($haslo);
+
+    if ($dlugosc <= 4) {
+        echo "hasło słabe";
+        return;
+    }
+    if (!preg_match('/[0-9]/', $haslo)) {
+        echo "hasło słabe";
+        return;
+    }
+    if (!preg_match('/[A-Z]/', $haslo)) {
+        echo "hasło słabe";
+        return;
+    }
+    if (!preg_match('/[a-z]/', $haslo)) {
+        echo "hasło słabe";
+        return;
+    }
+    if (!preg_match('/[^a-zA-Z0-9]/', $haslo)) {
+        echo "hasło słabe";
+        return;
+    }
+
+    if ($dlugosc < 8) {
+        echo "hasło średnie";
+    } else {
+        echo "hasło mocne";
+    }
+}
+?>
+
+<!-- zad-10 -->
+<?php
+function TROJKAT($a, $b, $c) {
+    $a = (int)$a;
+    $b = (int)$b;
+    $c = (int)$c;
+
+    if (($a + $b > $c) && ($a + $c > $b) && ($b + $c > $a)) {
+        echo "Tak, z podanych boków można utworzyć trójkąt.";
+    } else {
+        echo "Nie, z podanych boków nie da się utworzyć trójkątu.";
+    }
+}
+?>
+
+<!-- zad-11 -->
+<?php
+function SZYFR($tekst) {
+    $zaszyfrowany = "";
+    $dlugosc = strlen($tekst);
+
+    for ($i = 0; $i < $dlugosc; $i++) {
+        $char = $tekst[$i];
+        
+        if ($char >= 'a' && $char <= 'z') {
+            // Przesunięcie dla małych liter z zapętleniem
+            $zaszyfrowany .= chr(((ord($char) - ord('a') + 2) % 26) + ord('a'));
+        } elseif ($char >= 'A' && $char <= 'Z') {
+            // Przesunięcie dla wielkich liter z zapętleniem
+            $zaszyfrowany .= chr(((ord($char) - ord('A') + 2) % 26) + ord('A'));
+        } else {
+            // Pozostałe znaki (np. spacje, cyfry) zostają bez zmian
+            $zaszyfrowany .= $char;
+        }
+    }
+
+    echo "<input type='text' value='" . htmlspecialchars($tekst) . "' style='display:inline-block;'>";
+    echo "<span style='margin-left: 10px; font-weight: bold;'>$zaszyfrowany</span>";
+}
+?>
+</body>
+</html>
+
